@@ -19,10 +19,6 @@ jobs:
             - run:
                 name: "Building"
                 command: "cmake --build ."
-            - persist_to_workspace:
-                root: ./
-                paths:
-                    - ./*.deb
 workflows:
     version: 2
     build:
