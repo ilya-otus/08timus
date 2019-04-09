@@ -74,18 +74,18 @@ int main(int argc, char *argv[]) {
     if (relations.find(rootItem) != relations.end()) {
         relationsToMap(rootItem, 0);
     }
-    for (const auto &[k, v] : relations) {
-        if (auto found = result.find(k); found == result.end()) {
-            result[k] = -1;
+    for (const auto &item : relations) {
+        if (auto found = result.find(item.first); found == result.end()) {
+            result[item.first] = -1;
         }
     }
-    for (const auto &[k, v] : result) {
-        std::cout << k << " ";
-        if (v == -1) {
+    for (const auto &item : result) {
+        std::cout << item.first << " ";
+        if (item.second == -1) {
             std::cout << "undefined" << std::endl;
             continue;
         }
-        std::cout << v << std::endl;
+        std::cout << item.second << std::endl;
     }
     return 0;
 }
