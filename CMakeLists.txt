@@ -1,0 +1,37 @@
+cmake_minimum_required(VERSION 3.2)
+set(MAJOR_VERSION 0)
+set(MINOR_VERSION 0)
+set(PATCH_VERSION 999)
+if($ENV{MAJOR_VERSION})
+    set(MAJOR_VERSION $ENV{MAJOR_VERSION})
+endif()
+if($ENV{MINOR_VERSION})
+    set(MINOR_VERSION $ENV{MINOR_VERSION})
+endif()
+if($ENV{CIRCLE_BUILD_NUM})
+    set(PATCH_VERSION $ENV{CIRCLE_BUILD_NUM})
+endif()
+
+project(timus VERSION ${MAJOR_VERSION}.${MAJOR_VERSION}.${PATCH_VERSION})
+configure_file(version.h.in ${PROJECT_SOURCE_DIR}/version.h)
+add_executable(num1196 num1196.cpp)
+add_executable(num1496 num1496.cpp)
+add_executable(num1545 num1545.cpp)
+add_executable(num1837 num1837.cpp)
+
+set_target_properties(num1196 num1496 num1545 num1837 PROPERTIES
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED ON
+    COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
+)
+install(TARGETS num1196 RUNTIME DESTINATION bin)
+install(TARGETS num1496 RUNTIME DESTINATION bin)
+install(TARGETS num1545 RUNTIME DESTINATION bin)
+install(TARGETS num1837 RUNTIME DESTINATION bin)
+set(CPACK_GENERATOR DEB)
+set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
+set(CPACK_PACKAGE_CONTACT podshivalov.ilya@yandex.ru)
+set(CPACK_DEBIAN_PACKAGE_DEPENDS )
+include(CPack)
